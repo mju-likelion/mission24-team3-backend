@@ -39,6 +39,10 @@ paths:
       description: 아이템을 최근 아이템부터 가져옵니다.
       tags:
         - Item
+      parameters:
+        - in: query
+          name: categoryId
+          description: 카테고리 아이디
       responses:
         "200":
           description: 아이템을 가져왔습니다.
@@ -76,6 +80,10 @@ paths:
       description: 아이템을 좋아요가 많은 아이템부터 가져옵니다.
       tags:
         - Item
+      parameters:
+        - in: query
+          name: categoryId
+          description: 카테고리 아이디
       responses:
         "200":
           description: 아이템을 가져왔습니다.
