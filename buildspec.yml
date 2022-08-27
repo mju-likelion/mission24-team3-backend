@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - "npm install"
+      - "npm install --global serverless"
+  build:
+    commands:
+      - "serverless deploy"
+artifacts:
+  files:
+    - "**/*"

@@ -11,7 +11,7 @@ plugins:
 
 functions:
   app:
-    handler: /src/serverless.handler
+    handler: src/serverless.handler
     events:
       - http: ANY /
       - http: "ANY {proxy+}"
