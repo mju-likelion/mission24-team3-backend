@@ -1,0 +1,51 @@
+paths:
+  /category:
+    get:
+      summary: "카테고리 가져오기"
+      description: "카테고리를 가져옵니다."
+      tags:
+        - Category
+      responses:
+        "200":
+          description: 카테고리 결과가 반환됩니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 630a2940a0793b177bb74d7f
+                        categoryName:
+                          type: string
+                          example: "여행"
+                        downCategories:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              _id:
+                                type: string
+                                example: 630a297bcb5ee1489f13e620
+                              upperCategory:
+                                type: string
+                                example: 630a2940a0793b177bb74d7f
+                              categoryName:
+                                type: string
+                                example: 북미 여행
+        "401":
+          description: 401
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              examples:
+                AUTHORIZATION_NOT_SUGGESTED:
+                  $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
+                AUTHORIZATION_INVALID:
+                  $ref: "#/components/examples/AUTHORIZATION_INVALID"

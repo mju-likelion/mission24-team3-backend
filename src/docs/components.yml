@@ -1,0 +1,35 @@
+servers:
+  - url: https://mission24.suplitter.com
+    description: 미션24 개발서버
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP 상태코드
+        errorCode:
+          type: string
+          description: 에러코드
+        errorMsg:
+          type: string
+          description: 에러메시지
+  examples:
+    AUTHORIZATION_NOT_SUGGESTED:
+      description: 헤더에 authorization 이 기입되지 않았습니다.
+      value:
+        statusCode: 401
+        errorCode: AUTHORIZATION_NOT_SUGGESTED
+        errorMsg: "헤더에 authorization 이 기입되지 않았습니다"
+    AUTHORIZATION_INVALID:
+      description: 잘못된 엑세스 토큰이 기입되고 있습니다
+      value:
+        statusCode: 401
+        errorCode: AUTHORIZATION_NOT_SUGGESTED
+        errorMsg: 잘못된 access-token 값이 기입되고 있습니다
