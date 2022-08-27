@@ -1,7 +1,7 @@
 paths:
   /:
     get:
-      summary: "Get 방식(1)"
+      summary: "Get 방식 (1)"
       description: "서버에 아무 데이터 업이 Get방식으로 요청"
       tags:
         - Get 방식
