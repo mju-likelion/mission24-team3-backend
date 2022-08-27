@@ -6,20 +6,20 @@ const validation = require("../../middleware/validation");
 const router = Router();
 
 // 회원가입
-router.post(
+router.put(
   "/",
-  body("email"),
-  body("name"),
-  body("password"),
+  body("email").notEmpty(),
+  body("name").notEmpty(),
+  body("password").notEmpty(),
   validation,
   userController.createUser
 );
 
 // 로그인
-router.put(
+router.post(
   "/",
-  body("email"),
-  body("password"),
+  body("email").notEmpty(),
+  body("password").notEmpty(),
   validation,
   userController.loginUser
 );

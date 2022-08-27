@@ -10,9 +10,9 @@ const asyncWrapper = require("../utils/asyncWrapper");
  * @param {Response} res
  */
 const getItemsRecent = async (req, res) => {
-  const { categoryId } = req.body;
+  const { categoryId } = req.query;
 
-  const items = await itemService.getItems({ categoryId }, { createdAt: -1 });
+  const items = await itemService.getItemsRecent({ categoryId });
   res.status(httpStatus.OK).json({ items });
 };
 
@@ -22,9 +22,9 @@ const getItemsRecent = async (req, res) => {
  * @param {Response} res
  */
 const getItemsLike = async (req, res) => {
-  const { categoryId } = req.body;
+  const { categoryId } = req.query;
 
-  const items = await itemService.getItems({ categoryId }, { likeCount: -1 });
+  const items = await itemService.getItemsLike({ categoryId });
   res.status(httpStatus.OK).json({ items });
 };
 
@@ -58,10 +58,10 @@ const addItem = async (req, res) => {
  * @param {Response} res
  */
 const likeItem = async (req, res) => {
-  const { contentId } = req.params;
+  const { itemId } = req.params;
   const { id: userId } = res.locals.user;
 
-  await itemService.likeItem({ contentId, userId });
+  await itemService.likeItem({ contentId: itemId, userId });
   res.status(httpStatus.NO_CONTENT).send();
 };
 
@@ -71,10 +71,10 @@ const likeItem = async (req, res) => {
  * @param {Response} res
  */
 const dislikeItem = async (req, res) => {
-  const { contentId } = req.params;
+  const { itemId } = req.params;
   const { id: userId } = res.locals.user;
 
-  await itemService.dislikeItem({ contentId, userId });
+  await itemService.dislikeItem({ contentId: itemId, userId });
   res.status(httpStatus.NO_CONTENT).send();
 };
 

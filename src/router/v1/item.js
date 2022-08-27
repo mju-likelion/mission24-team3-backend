@@ -1,27 +1,42 @@
 const { Router } = require("express");
-const { param, body } = require("express-validator");
+const { param, body, query } = require("express-validator");
 const itemController = require("../../controller/item");
 const validation = require("../../middleware/validation");
 const auth = require("../../middleware/auth");
 
 const router = Router();
 
-router.get("/:itemId", param("itemId"), validation, itemController.getItem);
+router.get(
+  "/:itemId",
+  param("itemId").isMongoId(),
+  validation,
+  itemController.getItem
+);
 
-router.get("/items/recent", itemController.getItemsRecent);
-router.get("/items/like", itemController.getItemsLike);
+router.get(
+  "/items/recent",
+  query("categoryId").isMongoId(),
+  validation,
+  itemController.getItemsRecent
+);
+router.get(
+  "/items/like",
+  query("categoryId").isMongoId(),
+  validation,
+  itemController.getItemsLike
+);
 
 router.post(
   "/:itemId/like",
   auth,
-  param("itemId"),
+  param("itemId").isMongoId(),
   validation,
   itemController.likeItem
 );
 router.delete(
   "/:itemId/like",
   auth,
-  param("itemId"),
+  param("itemId").isMongoId(),
   validation,
   itemController.dislikeItem
 );
@@ -29,8 +44,8 @@ router.delete(
 router.post(
   "/",
   auth,
-  body("categoryId"),
-  body("name"),
+  body("categoryId").isMongoId(),
+  body("name").notEmpty(),
   validation,
   itemController.addItem
 );

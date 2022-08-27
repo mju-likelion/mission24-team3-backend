@@ -5,9 +5,9 @@
  */
 const asyncWrapper = (handler) => {
   return (req, res, next) => {
-    handler(req, res)
-      .then(next())
-      .catch((err) => next(err));
+    handler(req, res, next).catch((err) => {
+      next(err);
+    });
   };
 };
 

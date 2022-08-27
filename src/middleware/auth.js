@@ -20,10 +20,15 @@ const authSource = async (req, res, next) => {
       const payload = jwt.verify(token, JWT_SECRET_KEY);
       const { userid } = payload;
       const user = await User.findById(userid);
+      console.log(userid);
+      if (!user) {
+        throw new Error();
+      }
 
       res.locals.user = user;
       next();
-    } catch {
+    } catch (err) {
+      console.log(err);
       throw new APIError(errors.AUTHORIZATION_INVALID);
     }
   } else {

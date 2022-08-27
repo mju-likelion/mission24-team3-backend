@@ -17,6 +17,19 @@ const getCategories = async () => {
   return reduced;
 };
 
+const createCategory = async ({ categoryName }) => {
+  const category = new Category({ categoryName });
+  await category.save();
+};
+
+const createDownCategory = async ({ upperCategory, categoryName }) => {
+  const category = new DownCategory({ upperCategory, categoryName });
+  await category.save();
+};
+
 module.exports = {
   getCategories,
+
+  createCategory,
+  createDownCategory,
 };

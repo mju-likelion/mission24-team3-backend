@@ -17,8 +17,26 @@ const getItem = async ({ itemId }) => {
  *
  * @param {{categoryId: string}} param0
  */
-const getItems = async ({ categoryId, sort }) => {
-  const items = await Item.find({ category: categoryId }, {}, { sort });
+const getItemsRecent = async ({ categoryId }) => {
+  const items = await Item.find(
+    { category: categoryId },
+    {},
+    { sort: { createdAt: -1 } }
+  );
+
+  return items;
+};
+
+/**
+ *
+ * @param {{categoryId: string}} param0
+ */
+const getItemsLike = async ({ categoryId }) => {
+  const items = await Item.find(
+    { category: categoryId },
+    {},
+    { sort: { likeCount: -1 } }
+  );
 
   return items;
 };
@@ -58,7 +76,10 @@ const likeItem = async ({ contentId, userId }) => {
     userId,
   });
 
-  await Item.updateOne({ id: contentId }, { $inc: { likeCount: 1 } });
+  await Item.findByIdAndUpdate(contentId, {
+    $inc: { likeCount: 1 },
+  });
+
   await likeItem.save();
 };
 
@@ -72,14 +93,15 @@ const dislikeItem = async ({ contentId, userId }) => {
     throw new APIError(errors.LIKE_ALREADY_NOT_EXISTS);
   }
 
-  await Item.updateOne({ id: contentId }, { $inc: { likeCount: -1 } });
+  await Item.findByIdAndUpdate(contentId, { $inc: { likeCount: -1 } });
   await Like.deleteOne({ contentId, userId });
 };
 
 module.exports = {
   getItem,
 
-  getItems,
+  getItemsRecent,
+  getItemsLike,
   addItem,
 
   likeItem,
