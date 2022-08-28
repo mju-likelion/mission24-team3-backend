@@ -77,6 +77,17 @@ const dislikeItem = async (req, res) => {
   await itemService.dislikeItem({ contentId: itemId, userId });
   res.status(httpStatus.NO_CONTENT).send();
 };
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+const likeCount = async (req, res) => {
+  const { itemId } = req.params;
+
+  const likes = await itemService.getLikeCount({ contentId: itemId });
+  res.status(httpStatus.OK).send({ likeCount: likes });
+};
 
 module.exports = {
   getItemsRecent: asyncWrapper(getItemsRecent),
@@ -87,4 +98,5 @@ module.exports = {
 
   likeItem: asyncWrapper(likeItem),
   dislikeItem: asyncWrapper(dislikeItem),
+  likeCount: asyncWrapper(likeCount),
 };

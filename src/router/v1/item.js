@@ -25,6 +25,12 @@ router.get(
   validation,
   itemController.getItemsLike
 );
+router.get(
+  "/:itemId/like",
+  param("itemId").isMongoId(),
+  validation,
+  itemController.likeCount
+);
 
 router.post(
   "/:itemId/like",

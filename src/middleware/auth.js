@@ -17,7 +17,14 @@ const authSource = async (req, res, next) => {
   if (req.headers.authorization) {
     const auth = req.headers.authorization;
     try {
-      const token = auth.split("Bearer ")[1];
+      let token;
+
+      if (auth.startsWith("Bearer ")) {
+        token = auth.split("Bearer ")[1];
+      } else {
+        token = auth;
+      }
+
       const payload = jwt.verify(token, JWT_SECRET_KEY);
       const { userid } = payload;
       const user = await User.findById(userid);

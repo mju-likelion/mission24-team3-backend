@@ -116,6 +116,29 @@ paths:
                           type: string
                           example: 022-08-27T14:49:51.811Z
   /item/{itemId}/like:
+    get:
+      summary: 좋아요 개수
+      description: 좋아요 개수를 받아옵니다
+      tags:
+        - Item
+      parameters:
+        - in: path
+          name: itemId
+          schema:
+            type: string
+          example: 630a297bcb5ee1489f13e620
+      responses:
+        "200":
+          description: 가져오기 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  likeCount:
+                    type: integer
+                    description: 좋아요 개수
+                    example: 1
     post:
       summary: 좋아요
       description: 좋아요 요청을 전송합니다

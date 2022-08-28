@@ -97,6 +97,17 @@ const dislikeItem = async ({ contentId, userId }) => {
   await Like.deleteOne({ contentId, userId });
 };
 
+/**
+ *
+ * @param {{contentId: string}} param0
+ * @returns
+ */
+const getLikeCount = async ({ contentId }) => {
+  const item = await Item.findById(contentId);
+
+  return item.likeCount;
+};
+
 module.exports = {
   getItem,
 
@@ -106,4 +117,5 @@ module.exports = {
 
   likeItem,
   dislikeItem,
+  getLikeCount,
 };
