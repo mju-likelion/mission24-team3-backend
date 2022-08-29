@@ -196,6 +196,42 @@ paths:
                   $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
                 AUTHORIZATION_INVALID:
                   $ref: "#/components/examples/AUTHORIZATION_INVALID"
+    get:
+      summary: 좋아요 여부 확인
+      description: 유저가 해당 아이템에 좋아요를 눌렀는지 확인합니다.
+      security:
+        - BearerAuth: []
+      tags:
+        - Item
+      parameters:
+        - in: path
+          name: itemId
+          schema:
+            type: string
+          example: 630a297bcb5ee1489f13e620
+      responses:
+        "200":
+          description: 좋아요 여부를 성공적으로 받아왔습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exists:
+                    type: boolean
+                    example: true
+                    description: 좋아요 여부
+        "401":
+          description: 인증 오류
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              examples:
+                AUTHORIZATION_NOT_SUGGESTED:
+                  $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
+                AUTHORIZATION_INVALID:
+                  $ref: "#/components/examples/AUTHORIZATION_INVALID"
 
   /item:
     post:

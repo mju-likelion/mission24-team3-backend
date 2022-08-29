@@ -96,7 +96,6 @@ const dislikeItem = async ({ contentId, userId }) => {
   await Item.findByIdAndUpdate(contentId, { $inc: { likeCount: -1 } });
   await Like.deleteOne({ contentId, userId });
 };
-
 module.exports = {
   getItem,
 
@@ -106,4 +105,5 @@ module.exports = {
 
   likeItem,
   dislikeItem,
+  checkLikeExists,
 };

@@ -19,6 +19,7 @@ router.get(
   validation,
   itemController.getItemsRecent
 );
+
 router.get(
   "/items/like",
   query("categoryId").isMongoId(),
@@ -33,12 +34,21 @@ router.post(
   validation,
   itemController.likeItem
 );
+
 router.delete(
   "/:itemId/like",
   auth,
   param("itemId").isMongoId(),
   validation,
   itemController.dislikeItem
+);
+
+router.get(
+  "/:itemId/like",
+  auth,
+  param("itemId").isMongoId(),
+  validation,
+  itemController.checkLikeExists
 );
 
 router.post(
