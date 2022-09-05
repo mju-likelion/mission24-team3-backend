@@ -2,9 +2,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const categoryService = require("./service/category");
-const itemService = require("./service/item");
 
+mongoose.connect(
+  "mongodb+srv://livingodlife:FnjzDCcLuSholnnX@cluster0.rvzulm5.mongodb.net/mission24?retryWrites=true&w=majority"
+);
 const app = express();
 
 const router = require("./router");
