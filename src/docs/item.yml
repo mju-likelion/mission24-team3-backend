@@ -115,10 +115,10 @@ paths:
                         updatedAt:
                           type: string
                           example: 022-08-27T14:49:51.811Z
-  /item/items:
+  /item/items/sort:
     get:
-      summary: 아이템 가져오기
-      description: 아이템을 임의의 정렬로 가져옵니다.
+      summary: 임의정렬순 아이템 가져오기
+      description: 아이템을 임의의 정렬로 가져옵니다. sort 파라메터에는 복합인덱스 (두개 이상의 키를 사용해서 정렬), 단일인덱스 (하나의 키를 사용해서 정렬) 모두 사용 가능하며, 사용 가능한 키값으로는 createdAt, updatedAt, likeCount 가 있습니다.
       tags:
         - Item
       parameters:
