@@ -135,4 +135,5 @@ module.exports = {
   likeItem,
   dislikeItem,
   getLikeCount,
+  checkLikeExists,
 };

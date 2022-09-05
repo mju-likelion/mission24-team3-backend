@@ -102,6 +102,22 @@ const likeCount = async (req, res) => {
   res.status(httpStatus.OK).send({ likeCount: likes });
 };
 
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+const checkLikeExists = async (req, res) => {
+  const { itemId } = req.params;
+  const { id: userId } = res.locals.user;
+
+  const exists = await itemService.checkLikeExists({
+    contentId: itemId,
+    userId,
+  });
+  res.status(httpStatus.OK).send({ exists });
+};
+
 module.exports = {
   getItemsRecent: asyncWrapper(getItemsRecent),
   getItemsLike: asyncWrapper(getItemsLike),
@@ -113,5 +129,9 @@ module.exports = {
 
   likeItem: asyncWrapper(likeItem),
   dislikeItem: asyncWrapper(dislikeItem),
+<<<<<<< HEAD
   likeCount: asyncWrapper(likeCount),
+=======
+  checkLikeExists: asyncWrapper(checkLikeExists),
+>>>>>>> 5c1c2fea73014dc3890c5edbb6d4e9b660f77da4
 };
