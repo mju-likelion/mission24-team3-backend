@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 const userController = require("../../controller/user");
 const validation = require("../../middleware/validation");
 
@@ -22,6 +22,15 @@ router.post(
   body("password").notEmpty(),
   validation,
   userController.loginUser
+);
+
+// 해당 유저가 해당 포스트에 좋아요를 눌렀는지
+router.get(
+  "/:userId:/likes/:itemId",
+  param("userId").isMongoId(),
+  param("itemId").isMongoId(),
+  validation,
+  userController.likesItem
 );
 
 module.exports = router;

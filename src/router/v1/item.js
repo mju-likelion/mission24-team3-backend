@@ -3,6 +3,7 @@ const { param, body, query } = require("express-validator");
 const itemController = require("../../controller/item");
 const validation = require("../../middleware/validation");
 const auth = require("../../middleware/auth");
+const authNotThrow = require("../../middleware/authNotThrow");
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.get(
 
 router.get(
   "/",
+  authNotThrow,
   query("categoryId").isMongoId(),
   query("orderBy").exists(),
   query("skip").isNumeric().exists(),
@@ -44,14 +46,6 @@ router.delete(
   param("itemId").isMongoId(),
   validation,
   itemController.dislikeItem
-);
-
-router.get(
-  "/:itemId/like-exists",
-  auth,
-  param("itemId").isMongoId(),
-  validation,
-  itemController.checkLikeExists
 );
 
 router.post(

@@ -48,8 +48,33 @@ const getItems = async (req, res) => {
   const items = await itemService.getItems({ categoryId, sort, skip, limit });
   const itemsCount = await itemService.getItemsCount({ categoryId });
 
+  const itemsUpdated = [
+    ...(await Promise.all(
+      items.map(async (item) => {
+        if (res.locals.user) {
+          return {
+            ...item.toObject(),
+            likes: (await itemService.checkLikeExists({
+              contentId: item.id,
+              userId: res.locals.user.id,
+            }))
+              ? true
+              : false,
+          };
+        } else {
+          return {
+            ...item.toObject(),
+            likes: false,
+          };
+        }
+      })
+    )),
+  ];
+
   const nextSkip = parseInt(skip) + parseInt(limit);
-  res.status(httpStatus.OK).json({ items, totalCount: itemsCount, nextSkip });
+  res
+    .status(httpStatus.OK)
+    .json({ items: itemsUpdated, totalCount: itemsCount, nextSkip });
 };
 
 /**
@@ -101,6 +126,7 @@ const dislikeItem = async (req, res) => {
   await itemService.dislikeItem({ contentId: itemId, userId });
   res.status(httpStatus.NO_CONTENT).send();
 };
+
 /**
  *
  * @param {Request} req

@@ -36,14 +36,13 @@ const authSource = async (req, res, next) => {
       res.locals.user = user;
       next();
     } catch (err) {
-      console.log(err);
-      throw new APIError(errors.AUTHORIZATION_INVALID);
+      next();
     }
   } else {
-    throw new APIError(errors.AUTHORIZATION_NOT_SUGGESTED);
+    next();
   }
 };
 
-const auth = asyncWrapper(authSource);
+const authNotThrow = asyncWrapper(authSource);
 
-module.exports = auth;
+module.exports = authNotThrow;

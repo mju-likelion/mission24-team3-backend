@@ -4,6 +4,7 @@ const httpStatus = require("http-status");
 const asyncWrapper = require("../utils/asyncWrapper");
 
 const userService = require("../service/user");
+const itemService = require("../service/item");
 
 /**
  *
@@ -29,7 +30,23 @@ const loginUser = async (req, res) => {
   res.status(httpStatus.OK).json({ token });
 };
 
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+const likesItem = async (req, res) => {
+  const { itemId, userId } = req.params;
+
+  const exists = await itemService.checkLikeExists({
+    contentId: itemId,
+    userId,
+  });
+  res.status(httpStatus.OK).send({ exists });
+};
+
 module.exports = {
   createUser: asyncWrapper(createUser),
   loginUser: asyncWrapper(loginUser),
+  likesItem: asyncWrapper(likesItem),
 };
