@@ -34,11 +34,22 @@ const getItemsLike = async (req, res) => {
  * @param {Response} res
  */
 const getItems = async (req, res) => {
-  const { categoryId, sort: sortJson } = req.query;
-  const sort = JSON.parse(sortJson);
+  const { categoryId, orderBy, skip, limit } = req.query;
 
-  const items = await itemService.getItems({ categoryId, sort });
-  res.status(httpStatus.OK).json({ items });
+  let sort = {};
+  const orders = Array.isArray(orderBy) ? [...orderBy] : [orderBy];
+
+  orders.map((orderElem) => {
+    const [index, order] = orderElem.split(":");
+
+    sort[index] = order === "asc" ? 1 : -1;
+  });
+
+  const items = await itemService.getItems({ categoryId, sort, skip, limit });
+  const itemsCount = await itemService.getItemsCount({ categoryId });
+
+  const nextSkip = parseInt(skip) + parseInt(limit);
+  res.status(httpStatus.OK).json({ items, totalCount: itemsCount, nextSkip });
 };
 
 /**

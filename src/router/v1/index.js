@@ -3,12 +3,12 @@ const { Router } = require("express");
 const router = Router();
 
 const categoryRouter = require("./cateogry");
-router.use("/category", categoryRouter);
+router.use("/categories", categoryRouter);
 
 const itemRouter = require("./item");
-router.use("/item", itemRouter);
+router.use("/items", itemRouter);
 
 const userRouter = require("./user");
-router.use("/user", userRouter);
+router.use("/users", userRouter);
 
 module.exports = router;

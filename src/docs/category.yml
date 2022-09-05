@@ -1,5 +1,5 @@
 paths:
-  /category:
+  /categories:
     get:
       summary: "카테고리 가져오기"
       description: "카테고리를 가져옵니다."

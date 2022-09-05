@@ -1,5 +1,5 @@
 paths:
-  /item/{itemId}:
+  /items/{itemId}:
     get:
       summary: 아이템 가져오기
       description: 아이디에 해당하는 아이템을 가져옵니다
@@ -33,137 +33,10 @@ paths:
                 updatedAt:
                   type: string
                   example: "2022-08-27T23:49:51.811+09:00"
-  /item/items/recent:
-    get:
-      summary: 최근순 아이템 가져오기
-      description: 아이템을 최근 아이템부터 가져옵니다.
-      tags:
-        - Item
-      parameters:
-        - in: query
-          name: categoryId
-          description: 카테고리 아이디
-      responses:
-        "200":
-          description: 아이템을 가져왔습니다.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        _id:
-                          type: string
-                          example: 630a2f0f2d75d2b1c7748441
-                        category:
-                          type: string
-                          example: 630a2f0f2d75d2b1c7748441
-                        name:
-                          type: string
-                          example: name
-                        likeCount:
-                          type: integer
-                          example: 5
-                        createdAt:
-                          type: string
-                          example: "022-08-27T14:49:51.811Z"
-                        updatedAt:
-                          type: string
-                          example: 022-08-27T14:49:51.811Z
-  /item/items/like:
-    get:
-      summary: 좋아요순 아이템 가져오기
-      description: 아이템을 좋아요가 많은 아이템부터 가져옵니다.
-      tags:
-        - Item
-      parameters:
-        - in: query
-          name: categoryId
-          description: 카테고리 아이디
-      responses:
-        "200":
-          description: 아이템을 가져왔습니다.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        _id:
-                          type: string
-                          example: 630a2f0f2d75d2b1c7748441
-                        category:
-                          type: string
-                          example: 630a2f0f2d75d2b1c7748441
-                        name:
-                          type: string
-                          example: name
-                        likeCount:
-                          type: integer
-                          example: 5
-                        createdAt:
-                          type: string
-                          example: "022-08-27T14:49:51.811Z"
-                        updatedAt:
-                          type: string
-                          example: 022-08-27T14:49:51.811Z
-  /item/items/sort:
-    get:
-      summary: 임의정렬순 아이템 가져오기
-      description: 아이템을 임의의 정렬로 가져옵니다. sort 파라메터에는 복합인덱스 (두개 이상의 키를 사용해서 정렬), 단일인덱스 (하나의 키를 사용해서 정렬) 모두 사용 가능하며, 사용 가능한 키값으로는 createdAt, updatedAt, likeCount 가 있습니다.
-      tags:
-        - Item
-      parameters:
-        - in: query
-          name: categoryId
-          description: 카테고리 아이디
-        - in: query
-          name: sort
-          description: 정렬 기준, -1 이 내림차순, 1 이 오름차순 입니다.
-          example: { "likeCount": 1, "createdAt": -1 }
-      responses:
-        "200":
-          description: 아이템을 가져왔습니다.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        _id:
-                          type: string
-                          example: 630a2f0f2d75d2b1c7748441
-                        category:
-                          type: string
-                          example: 630a2f0f2d75d2b1c7748441
-                        name:
-                          type: string
-                          example: name
-                        likeCount:
-                          type: integer
-                          example: 5
-                        createdAt:
-                          type: string
-                          example: "022-08-27T14:49:51.811Z"
-                        updatedAt:
-                          type: string
-                          example: 022-08-27T14:49:51.811Z
-  /item/{itemId}/like:
+  /items/{itemId}/like:
     get:
       summary: 좋아요 개수
-      description: 좋아요 개수를 받아옵니다
+      description: 좋아요 개수를 가져옵니다
       tags:
         - Item
       parameters:
@@ -264,7 +137,7 @@ paths:
                   $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
                 AUTHORIZATION_INVALID:
                   $ref: "#/components/examples/AUTHORIZATION_INVALID"
-  /item/{itemId}/likeExists:
+  /items/{itemId}/like-exists:
     get:
       summary: 좋아요 여부 확인
       description: 유저가 해당 아이템에 좋아요를 눌렀는지 확인합니다.
@@ -301,7 +174,7 @@ paths:
                   $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
                 AUTHORIZATION_INVALID:
                   $ref: "#/components/examples/AUTHORIZATION_INVALID"
-  /item:
+  /items:
     post:
       summary: 아이템 생성
       description: 아이템 생성 요청을 전송합니다
@@ -335,3 +208,63 @@ paths:
                   $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
                 AUTHORIZATION_INVALID:
                   $ref: "#/components/examples/AUTHORIZATION_INVALID"
+    get:
+      summary: 아이템 리스트 가져오기
+      description: 아이템을 정렬로 가져옵니다.
+      tags:
+        - Item
+      parameters:
+        - in: query
+          name: categoryId
+          description: 카테고리 아이디
+        - in: query
+          name: skip
+          description: 제외할 item 개수를 가져옵니다
+          example: 100
+        - in: query
+          name: limit
+          description: 가져올 item 개수를 설정합니다.
+          example: 100
+        - in: query
+          name: orderBy
+          description: 정렬 기준입니다, 중복해서 설정할 수 있습니다.
+          example: likeCount:asc
+      responses:
+        "200":
+          description: 아이템을 가져왔습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 630a2f0f2d75d2b1c7748441
+                        category:
+                          type: string
+                          example: 630a2f0f2d75d2b1c7748441
+                        name:
+                          type: string
+                          example: name
+                        likeCount:
+                          type: integer
+                          example: 5
+                        createdAt:
+                          type: string
+                          example: "022-08-27T14:49:51.811Z"
+                        updatedAt:
+                          type: string
+                          example: 022-08-27T14:49:51.811Z
+                  totalCount:
+                    type: number
+                    example: 10
+                    description: 데이터베이스에 있는 전체 아이템의 개수입니다.
+                  nextSkip:
+                    type: number
+                    example: 1
+                    description: 다음 조회에 사용할 skip 값입니다.

@@ -1,5 +1,5 @@
 paths:
-  /user:
+  /users:
     put:
       summary: "유저 가입하기"
       description: "유저 가입 요청을 보냅니다."

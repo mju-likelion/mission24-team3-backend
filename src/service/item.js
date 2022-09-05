@@ -43,18 +43,28 @@ const getItemsLike = async ({ categoryId }) => {
 
 /**
  *
- * @param {{categoryId: string, sort: any}} param0
+ * @param {{categoryId: string, sort: any, skip: number, limit: number}} param0
  */
-const getItems = async ({ categoryId, sort }) => {
+const getItems = async ({ categoryId, sort, skip, limit }) => {
   const items = await Item.find(
     {
       category: categoryId,
     },
     {},
-    { sort }
+    { sort, skip, limit }
   );
 
   return items;
+};
+
+/**
+ *
+ * @param {{categoryId: string}} param0
+ * @returns
+ */
+const getItemsCount = async ({ categoryId }) => {
+  const itemCount = await Item.countDocuments({ category: categoryId });
+  return itemCount;
 };
 
 /**
@@ -130,6 +140,7 @@ module.exports = {
   getItemsRecent,
   getItemsLike,
   getItems,
+  getItemsCount,
   addItem,
 
   likeItem,

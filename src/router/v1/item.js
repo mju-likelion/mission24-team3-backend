@@ -14,25 +14,15 @@ router.get(
 );
 
 router.get(
-  "/items/sort",
+  "/",
   query("categoryId").isMongoId(),
-  query("sort").isJSON(),
+  query("orderBy").exists(),
+  query("skip").isNumeric().exists(),
+  query("limit").isNumeric().exists(),
   validation,
   itemController.getItems
 );
-router.get(
-  "/items/recent",
-  query("categoryId").isMongoId(),
-  validation,
-  itemController.getItemsRecent
-);
 
-router.get(
-  "/items/like",
-  query("categoryId").isMongoId(),
-  validation,
-  itemController.getItemsLike
-);
 router.get(
   "/:itemId/like",
   param("itemId").isMongoId(),
@@ -57,7 +47,7 @@ router.delete(
 );
 
 router.get(
-  "/:itemId/likeExists",
+  "/:itemId/like-exists",
   auth,
   param("itemId").isMongoId(),
   validation,
