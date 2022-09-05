@@ -129,9 +129,6 @@ module.exports = {
 
   likeItem: asyncWrapper(likeItem),
   dislikeItem: asyncWrapper(dislikeItem),
-<<<<<<< HEAD
   likeCount: asyncWrapper(likeCount),
-=======
   checkLikeExists: asyncWrapper(checkLikeExists),
->>>>>>> 5c1c2fea73014dc3890c5edbb6d4e9b660f77da4
 };
