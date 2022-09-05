@@ -115,6 +115,51 @@ paths:
                         updatedAt:
                           type: string
                           example: 022-08-27T14:49:51.811Z
+  /item/items:
+    get:
+      summary: 아이템 가져오기
+      description: 아이템을 임의의 정렬로 가져옵니다.
+      tags:
+        - Item
+      parameters:
+        - in: query
+          name: categoryId
+          description: 카테고리 아이디
+        - in: query
+          name: sort
+          description: 정렬 기준, -1 이 내림차순, 1 이 오름차순 입니다.
+          example: { "likeCount": 1, "createdAt": -1 }
+      responses:
+        "200":
+          description: 아이템을 가져왔습니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 630a2f0f2d75d2b1c7748441
+                        category:
+                          type: string
+                          example: 630a2f0f2d75d2b1c7748441
+                        name:
+                          type: string
+                          example: name
+                        likeCount:
+                          type: integer
+                          example: 5
+                        createdAt:
+                          type: string
+                          example: "022-08-27T14:49:51.811Z"
+                        updatedAt:
+                          type: string
+                          example: 022-08-27T14:49:51.811Z
   /item/{itemId}/like:
     get:
       summary: 좋아요 개수

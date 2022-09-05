@@ -43,6 +43,22 @@ const getItemsLike = async ({ categoryId }) => {
 
 /**
  *
+ * @param {{categoryId: string, sort: any}} param0
+ */
+const getItems = async ({ categoryId, sort }) => {
+  const items = await Item.find(
+    {
+      category: categoryId,
+    },
+    {},
+    { sort }
+  );
+
+  return items;
+};
+
+/**
+ *
  * @param {{categoryId: string, itemName: string}} param0
  */
 const addItem = async ({ categoryId, name }) => {
@@ -113,6 +129,7 @@ module.exports = {
 
   getItemsRecent,
   getItemsLike,
+  getItems,
   addItem,
 
   likeItem,

@@ -14,6 +14,13 @@ router.get(
 );
 
 router.get(
+  "/items/sort",
+  query("categoryId").isMongoId(),
+  query("sort").isJSON(),
+  validation,
+  itemController.getItems
+);
+router.get(
   "/items/recent",
   query("categoryId").isMongoId(),
   validation,

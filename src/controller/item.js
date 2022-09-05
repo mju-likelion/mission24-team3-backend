@@ -33,6 +33,19 @@ const getItemsLike = async (req, res) => {
  * @param {Request} req
  * @param {Response} res
  */
+const getItems = async (req, res) => {
+  const { categoryId, sort: sortJson } = req.query;
+  const sort = JSON.parse(sortJson);
+
+  const items = await itemService.getItems({ categoryId, sort });
+  res.status(httpStatus.OK).json({ items });
+};
+
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
 const getItem = async (req, res) => {
   const { itemId } = req.params;
 
@@ -92,6 +105,8 @@ const likeCount = async (req, res) => {
 module.exports = {
   getItemsRecent: asyncWrapper(getItemsRecent),
   getItemsLike: asyncWrapper(getItemsLike),
+  getItems: asyncWrapper(getItems),
+
   getItem: asyncWrapper(getItem),
 
   addItem: asyncWrapper(addItem),
