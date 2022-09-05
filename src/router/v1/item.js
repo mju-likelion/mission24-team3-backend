@@ -57,7 +57,7 @@ router.delete(
 );
 
 router.get(
-  "/:itemId/like",
+  "/:itemId/likeExists",
   auth,
   param("itemId").isMongoId(),
   validation,
