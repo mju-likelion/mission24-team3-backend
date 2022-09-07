@@ -1,8 +1,8 @@
 paths:
   /auth/register:
     post:
-      summary: "유저 가입하기"
-      description: "유저 가입 요청을 보냅니다."
+      summary: 회원가입
+      description: 회원가입 요청을 전송합니다.
       tags:
         - Auth
       requestBody:
@@ -48,7 +48,7 @@ paths:
                     errorMsg: 이미 사용중인 이름입니다
   /auth/login:
     post:
-      summary: 로그인 하기
+      summary: 로그인
       description: 로그인 요청을 전송합니다
       tags:
         - Auth
