@@ -72,9 +72,12 @@ paths:
               schema:
                 type: object
                 properties:
-                  token:
+                  accessToken:
                     type: string
                     example: "access-token"
+                  refreshToken:
+                    type: string
+                    example: "refresh-token"
         "400":
           description: 잘못된 요청
           content:
