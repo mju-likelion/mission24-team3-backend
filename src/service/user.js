@@ -10,12 +10,14 @@ const hash = (val) => crypto.createHash("sha256").update(val).digest("hex");
 const createAccessToken = async ({ userid }) => {
   const accessToken = jwt.sign(
     { userid: userid, type: "access" },
-    JWT_SECRET_KEY
+    JWT_SECRET_KEY,
+    { expiresIn: "1h" }
   );
 
   const refreshToken = jwt.sign(
     { userid: userid, type: "access" },
-    JWT_SECRET_KEY
+    JWT_SECRET_KEY,
+    { expiresIn: "2w" }
   );
 
   return { accessToken, refreshToken };

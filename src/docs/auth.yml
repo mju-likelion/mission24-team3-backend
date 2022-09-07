@@ -91,7 +91,7 @@ paths:
   /auth/refresh:
     post:
       summary: 엑세스토큰 갱신
-      description: RefreshToken 을 통해 새로운 AccessToken 과 RefreshToken 을 받아옵니다.
+      description: RefreshToken 을 통해 새로운 AccessToken 과 RefreshToken 을 받아옵니다. 각각 expiration time 은 1시간, 2주 입니다
       tags:
         - Auth
       requestBody:
