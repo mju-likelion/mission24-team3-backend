@@ -5,6 +5,7 @@ phases:
     commands:
       - "npm install"
       - "npm install --global serverless"
+      - "npm test"
   build:
     commands:
       - "serverless deploy"
