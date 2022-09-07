@@ -1,3 +1,5 @@
+const httpStatus = require("http-status");
+
 const errors = {
   EMAIL_EXISTS: {
     statusCode: 400,
@@ -18,13 +20,13 @@ const errors = {
   },
 
   AUTHORIZATION_NOT_SUGGESTED: {
-    statusCode: 401,
+    statusCode: httpStatus.UNAUTHORIZED,
     errorCode: "AUTHORIZATION_NOT_SUGGESTED",
     errorMsg: "헤더에 authorization 이 기입되지 않았습니다",
   },
 
   AUTHORIZATION_INVALID: {
-    statusCode: 401,
+    statusCode: httpStatus.UNAUTHORIZED,
     errorCode: "AUTHORIZATION_INVALID",
     errorMsg: "잘못된 access-token 값이 기입되고 있습니다",
   },

@@ -23,5 +23,12 @@ router.post(
   validation,
   authController.loginUser
 );
+// 액세스토큰 refresh
+router.post(
+  "/refresh",
+  body("refreshToken").notEmpty(),
+  validation,
+  authController.refreshToken
+);
 
 module.exports = router;

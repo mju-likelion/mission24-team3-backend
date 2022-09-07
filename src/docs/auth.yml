@@ -88,6 +88,48 @@ paths:
                     statusCode: 404
                     errorCode: "EMAIL_NOT_EXISTS"
                     errorMsg: "가입되지 않은 이메일입니다"
+  /auth/refresh:
+    post:
+      summary: 엑세스토큰 갱신
+      description: RefreshToken 을 통해 새로운 AccessToken 과 RefreshToken 을 받아옵니다.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: refresh-token
+      responses:
+        "200":
+          description: 갱신 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refreshToken:
+                    type: string
+                    example: refresh-token
+                  accessToken:
+                    type: string
+                    example: access-token
+        "401":
+          description: 인증 오류
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              examples:
+                AUTHORIZATION_NOT_SUGGESTED:
+                  $ref: "#/components/examples/AUTHORIZATION_NOT_SUGGESTED"
+                AUTHORIZATION_INVALID:
+                  $ref: "#/components/examples/AUTHORIZATION_INVALID"
+
   /users/{userId}/likes/{itemId}:
     get:
       summary: 좋아요 여부 확인

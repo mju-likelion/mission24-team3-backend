@@ -25,11 +25,23 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  const token = await userService.loginUser({ email, password });
-  res.status(httpStatus.OK).json({ token });
+  const tokens = await userService.loginUser({ email, password });
+  res.status(httpStatus.OK).json({ ...tokens });
+};
+
+const refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
+
+  try {
+    const tokens = await userService.refreshToken({ refreshToken });
+    res.status(httpStatus.OK).json({ ...tokens });
+  } catch {
+    res.status(httpStatus.UNAUTHORIZED).send();
+  }
 };
 
 module.exports = {
   createUser: asyncWrapper(createUser),
   loginUser: asyncWrapper(loginUser),
+  refreshToken: asyncWrapper(refreshToken),
 };

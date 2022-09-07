@@ -7,6 +7,20 @@ const { JWT_SECRET_KEY } = require("../env");
 
 const hash = (val) => crypto.createHash("sha256").update(val).digest("hex");
 
+const createAccessToken = async ({ userid }) => {
+  const accessToken = jwt.sign(
+    { userid: userid, type: "access" },
+    JWT_SECRET_KEY
+  );
+
+  const refreshToken = jwt.sign(
+    { userid: userid, type: "access" },
+    JWT_SECRET_KEY
+  );
+
+  return { accessToken, refreshToken };
+};
+
 /**
  *
  * @param {{email: string, password: string, name: string}} param0
@@ -46,11 +60,23 @@ const loginUser = async ({ email, password }) => {
     throw new APIError(errors.EMAIL_NOT_EXISTS);
   }
 
-  const token = jwt.sign({ userid: user.id }, JWT_SECRET_KEY);
-  return token;
+  const tokens = createAccessToken({ userid: user.id });
+
+  return tokens;
 };
 
+/**
+ *
+ * @param {{refreshToken: string}} param0
+ */
+const refreshToken = async ({ refreshToken }) => {
+  const { userid } = jwt.verify(refreshToken, JWT_SECRET_KEY);
+  const tokens = createAccessToken({ userid });
+
+  return tokens;
+};
 module.exports = {
   createUser,
   loginUser,
+  refreshToken,
 };
