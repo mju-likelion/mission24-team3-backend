@@ -16,23 +16,24 @@ paths:
           description: 아이템 가져오기 성공
           content:
             application/json:
-              type: object
-              properties:
-                category:
-                  type: string
-                  example: 630a2980cb5ee1489f13e623
-                name:
-                  type: string
-                  example: asdf
-                likeCount:
-                  type: integer
-                  example: -1
-                createdAt:
-                  type: string
-                  example: "2022-08-27T23:49:51.811+09:00"
-                updatedAt:
-                  type: string
-                  example: "2022-08-27T23:49:51.811+09:00"
+              schema:
+                type: object
+                properties:
+                  category:
+                    type: string
+                    example: 630a2980cb5ee1489f13e623
+                  name:
+                    type: string
+                    example: asdf
+                  likeCount:
+                    type: integer
+                    example: 1
+                  createdAt:
+                    type: string
+                    example: "2022-08-27T23:49:51.811+09:00"
+                  updatedAt:
+                    type: string
+                    example: "2022-08-27T23:49:51.811+09:00"
   /items/{itemId}/like:
     get:
       summary: 좋아요 개수

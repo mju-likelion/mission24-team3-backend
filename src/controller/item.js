@@ -40,9 +40,11 @@ const getItems = async (req, res) => {
   const orders = Array.isArray(orderBy) ? [...orderBy] : [orderBy];
 
   orders.map((orderElem) => {
-    const [index, order] = orderElem.split(":");
+    if (orderElem) {
+      const [index, order] = orderElem.split(":");
 
-    sort[index] = order === "asc" ? 1 : -1;
+      sort[index] = order === "asc" ? 1 : -1;
+    }
   });
 
   const items = await itemService.getItems({ categoryId, sort, skip, limit });

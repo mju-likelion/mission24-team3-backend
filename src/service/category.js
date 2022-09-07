@@ -20,6 +20,8 @@ const getCategories = async () => {
 const createCategory = async ({ categoryName }) => {
   const category = new Category({ categoryName });
   await category.save();
+
+  return category;
 };
 
 const createDownCategory = async ({ upperCategory, categoryName }) => {

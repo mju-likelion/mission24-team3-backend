@@ -18,9 +18,8 @@ router.get(
   "/",
   authNotThrow,
   query("categoryId").isMongoId(),
-  query("orderBy").exists(),
-  query("skip").isNumeric().exists(),
-  query("limit").isNumeric().exists(),
+  query("skip").isNumeric(),
+  query("limit").isNumeric(),
   validation,
   itemController.getItems
 );
