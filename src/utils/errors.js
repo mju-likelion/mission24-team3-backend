@@ -42,6 +42,18 @@ const errors = {
     errorCode: "LIKE_ALREADY_NOT_EXISTS",
     errorMsg: "아직 좋아요를 누르지 않았습니다",
   },
+
+  ALREADY_REPORTED: {
+    statusCode: 400,
+    errorCode: "ALREADY_REPORTED",
+    errorMsg: "이미 신고가 되어있습니다."
+  },
+
+  NOT_REPORTED: {
+    statusCode: 400,
+    errorCode: "NOT_REPORTED",
+    errorMsg: "신고가 되지 않았는데 삭제하려 했습니다"
+  }
 };
 
 module.exports = errors;
