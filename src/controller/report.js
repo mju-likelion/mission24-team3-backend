@@ -12,7 +12,7 @@ const reportService = require("../service/report");
  * @param {Response} res 
  */
 const getReport = async (req, res) => {
-    const { itemId } = req.body;
+    const { itemId } = req.params;
     const { userId } = res.locals.user;
 
     const report =  await reportService.getReport({itemId, userId})
@@ -25,7 +25,7 @@ const getReport = async (req, res) => {
  * @param {Response} res 
  */
 const addReport = async (req, res) => {
-    const { itemId } = req.body;
+    const { itemId } = req.params;
     const { userId } = res.locals.user;
 
     await reportService.addReport({itemId, userId})
@@ -38,7 +38,7 @@ const addReport = async (req, res) => {
  * @param {Response} res 
  */
 const removeReport = async (req, res) => {
-    const { itemId } = req.body;
+    const { itemId } = req.params;
     const { userId } = res.locals.user;
 
     await reportService.removeReport({itemId, userId})
