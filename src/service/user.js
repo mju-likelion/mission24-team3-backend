@@ -11,13 +11,13 @@ const createAccessToken = async ({ userid }) => {
   const accessToken = jwt.sign(
     { userid: userid, type: "access" },
     JWT_SECRET_KEY,
-    { expiresIn: "1h" }
+    { expiresIn: "1m" }
   );
 
   const refreshToken = jwt.sign(
     { userid: userid, type: "access" },
     JWT_SECRET_KEY,
-    { expiresIn: "1m" }
+    { expiresIn: "2w" }
   );
 
   return { accessToken, refreshToken };
