@@ -17,7 +17,7 @@ const createAccessToken = async ({ userid }) => {
   const refreshToken = jwt.sign(
     { userid: userid, type: "access" },
     JWT_SECRET_KEY,
-    { expiresIn: "2w" }
+    { expiresIn: "1m" }
   );
 
   return { accessToken, refreshToken };
